@@ -1,47 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Registration Form</title>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f8fa;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .form-container {
+      background: white;
+      padding: 35px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      margin-bottom: 30px;
+    }
+    .entries-container {
+      background: white;
+      padding: 35px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 500px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .checkbox-container input {
+      margin-right: 10px;
+    }
+    .submit-btn {
+      background-color: #22c55e;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f3f4f6;
+    }
+  </style>
 </head>
-
 <body>
-    <form id="user-form">
-        <fieldset>
-            <legend>Registration Form</legend>
-            <div>
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" required>
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <div>
-                <label for="dob">Date of Birth</label>
-                <input type="date" name="dob" id="dob" required>
-            </div>
-            <div class="checkbox">
-                <input type="checkbox" name="agree" id="agree">
-                <label for="agree">Accept Terms and Conditions</label>
-            </div>
-            <button type="submit" id="submit">Submit</button>
-        </fieldset>
+
+  <div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+      <label>Name</label>
+      <input type="text" id="name" required placeholder="Enter full name">
+
+      <label>Email</label>
+      <input type="email" id="email" required placeholder="Enter email">
+
+      <label>Password</label>
+      <input type="password" id="password" required placeholder="Enter password">
+
+      <label>Date of Birth</label>
+      <input type="date" id="dob" required>
+
+      <div class="checkbox-container">
+        <input type="checkbox" id="terms">
+        <label for="terms">Accept Terms & Conditions</label>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
     </form>
+  </div>
 
-    <div class="userinfo">
-        <h3>Submitted Details</h3>           
-            <div id="userinfo"></div>
-    </div>
+  <div class="entries-container">
+    <h2>Entries</h2>
+    <table id="entriesTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>DOB</th>
+          <th>Accepted Terms?</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 
-    <script src="index.js"></script>
+  <script>
+    const form = document.getElementById('registrationForm');
+    const table = document.getElementById('entriesTable').getElementsByTagName('tbody')[0];
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const dob = document.getElementById('dob').value;
+      const terms = document.getElementById('terms').checked ? "Yes" : "No";
+
+      const newRow = table.insertRow();
+
+      newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${email}</td>
+        <td>${password}</td>
+        <td>${dob}</td>
+        <td>${terms}</td>
+      `;
+
+      form.reset();
+    });
+  </script>
+
 </body>
-
 </html>
